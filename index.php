@@ -164,7 +164,7 @@
                         <label>Valores (Y)</label>
                         <?php
                         for ($i = 1; $i <= $p; $i++) {
-                            echo "<input type='text' class='form-control' name='y{$i}'>";
+                            echo "<input type='number' step='.01' class='form-control' name='y{$i}'>";
                         }
                         ?>
                     </div>

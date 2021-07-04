@@ -115,7 +115,7 @@
         // Eixo X
         for ($i = 1; $i <= $n; $i++) {
             if (isset($_POST["x{$i}"])) {
-                $tempo[] = $_POST["x{$i}"];
+                $x[] = $_POST["x{$i}"];
             }
         }
         // titulo do eixo x
@@ -135,7 +135,7 @@
         // Eixo Y
         for ($i = 1; $i <= $n; $i++) {
             if (isset($_POST["y{$i}"])) {
-                $temperatura[] = $_POST["y{$i}"];
+                $y[] = $_POST["y{$i}"];
             }
         }
         // titulo do eixo y
@@ -153,8 +153,8 @@
             $cory = 'black';
         }
 
-        $tempo = json_encode($tempo);
-        $temperatura = json_encode($temperatura);
+        $x = json_encode($x);
+        $y = json_encode($y);
         $dados = 'Prof: ' . $professor . ', ' . $serie . ', Alunos: ' . $equipe;
 
         ?>
@@ -165,8 +165,8 @@
         <button class="btn-danger" id="removeData" onclick="removeData()">Del Data</button>
     </div>
     <script>
-        let tempo = <?php echo $tempo ?> //[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-        let temperatura = <?php echo $temperatura ?> //[12, 15, 19, 21, 25, 32, 45, 56, 68, 79, 83, 89, 91, 95, 97, 99, 100, 100, 100, 100]
+        let data_x = <?php echo $x ?> //[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+        let data_y = <?php echo $y ?> //[12, 15, 19, 21, 25, 32, 45, 56, 68, 79, 83, 89, 91, 95, 97, 99, 100, 100, 100, 100]
         let tipo = "<?php echo $tipo ?>"
         let titulo = "<?php echo $titulo ?>"
         let subtitulo = "<?php echo $dados . ' - ' . date('d-m-Y H:i:s'); ?>"
@@ -243,10 +243,10 @@
         let lineChart = new Chart(ctx, {
             type: tipo, // line, bar, bubble, pie, polarArea, radar
             data: {
-                labels: tempo, //[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+                labels: data_x, //[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
                 datasets: [{
                     label: legenda, //'Água',
-                    data: temperatura, //[12, 15, 19, 21, 25, 32, 45, 56, 68, 79, 83, 89, 91, 95, 97, 99, 100, 100, 100, 100],
+                    data: data_y, //[12, 15, 19, 21, 25, 32, 45, 56, 68, 79, 83, 89, 91, 95, 97, 99, 100, 100, 100, 100],
                     borderWidth: 5,
                     borderColor: COLORS_BORD,
                     backgroundColor: COLORS,
@@ -313,12 +313,7 @@
                             drawBorder: true,
                             drawOnChartArea: true,
                             drawTicks: true,
-                        },
-
-                        ticks: {
-                            stepSize: 1
                         }
-
                     },
                     y: {
                         display: true,
@@ -336,10 +331,6 @@
                             drawBorder: true,
                             drawOnChartArea: true,
                             drawTicks: true,
-                        },
-
-                        ticks: {
-                            stepSize: 5
                         }
                     }
                 }
