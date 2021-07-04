@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="container" style="background-color: honeydew">
+    <div class="container mb-5" style="background-color: honeydew">
         <?php
         if (isset($_POST["n"])) {
             $n = $_POST["n"];
@@ -161,6 +161,7 @@
         <canvas id="lineChart" width="300" height="200"></canvas>
         <br />
         <button class="btn-info" id="save">Salvar Gráfico</button>
+        <button class="btn-warning" id="voltar" onclick="voltar()">Voltar</button>
         <button class="btn-success" id="addData" onclick="addData()">Add Data</button>
         <button class="btn-danger" id="removeData" onclick="removeData()">Del Data</button>
     </div>
@@ -355,6 +356,9 @@
             lineChart.data.datasets[0].data.pop()
             lineChart.data.labels.pop()
             lineChart.update()
+        }
+        const voltar = () => {
+            window.location.href = "./";
         }
     </script>
 </body>
