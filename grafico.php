@@ -21,7 +21,28 @@
         if (empty($_POST["n"])) {
             $n = 3;
         }
-        //
+        // Professor
+        if (isset($_POST["professor"])) {
+            $professor = $_POST["professor"];
+        }
+        if (empty($_POST["professor"])) {
+            $professor = "Professor";
+        }
+        // Série
+        if (isset($_POST["serie"])) {
+            $serie = $_POST["serie"];
+        }
+        if (empty($_POST["serie"])) {
+            $serie = "Série";
+        }
+        // Equipe
+        if (isset($_POST["equipe"])) {
+            $equipe = $_POST["equipe"];
+        }
+        if (empty($_POST["equipe"])) {
+            $equipe = "Equipe";
+        }
+        // Tipo de gráfico
         if (isset($_POST["tipo"])) {
             $tipo = $_POST["tipo"];
         }
@@ -78,7 +99,7 @@
             $posicao = 'top';
         }
         // estilo de ponto
-         if (isset($_POST["pointstyle"])) {
+        if (isset($_POST["pointstyle"])) {
             $pointstyle = $_POST["pointstyle"];
         }
         if (empty($_POST["pointstyle"])) {
@@ -91,19 +112,51 @@
         if (empty($_POST["arquivo"])) {
             $arquivo = 'arquivo';
         }
-        // Eixos
+        // Eixo X
         for ($i = 1; $i <= $n; $i++) {
-            if (isset($_POST["tempo{$i}"])) {
-                $tempo[] = $_POST["tempo{$i}"];
+            if (isset($_POST["x{$i}"])) {
+                $tempo[] = $_POST["x{$i}"];
             }
         }
+        // titulo do eixo x
+        if (isset($_POST["eixo_x"])) {
+            $eixo_x = $_POST["eixo_x"];
+        }
+        if (empty($_POST["eixo_x"])) {
+            $eixo_x = 'eixo_x';
+        }
+        // cor do eixo x
+        if (isset($_POST["corx"])) {
+            $corx = $_POST["corx"];
+        }
+        if (empty($_POST["corx"])) {
+            $corx = 'black';
+        }
+        // Eixo Y
         for ($i = 1; $i <= $n; $i++) {
-            if (isset($_POST["temperatura{$i}"])) {
-                $temperatura[] = $_POST["temperatura{$i}"];
+            if (isset($_POST["y{$i}"])) {
+                $temperatura[] = $_POST["y{$i}"];
             }
         }
+        // titulo do eixo y
+        if (isset($_POST["eixo_y"])) {
+            $eixo_y = $_POST["eixo_y"];
+        }
+        if (empty($_POST["eixo_y"])) {
+            $eixo_y = 'eixo_y';
+        }
+        // cor do eixo y
+        if (isset($_POST["cory"])) {
+            $cory = $_POST["cory"];
+        }
+        if (empty($_POST["cory"])) {
+            $cory = 'black';
+        }
+
         $tempo = json_encode($tempo);
         $temperatura = json_encode($temperatura);
+        $dados = 'Prof: ' . $professor . ', ' . $serie . ', Alunos: ' . $equipe;
+
         ?>
         <canvas id="lineChart" width="300" height="200"></canvas>
         <br />
@@ -116,16 +169,20 @@
         let temperatura = <?php echo $temperatura ?> //[12, 15, 19, 21, 25, 32, 45, 56, 68, 79, 83, 89, 91, 95, 97, 99, 100, 100, 100, 100]
         let tipo = "<?php echo $tipo ?>"
         let titulo = "<?php echo $titulo ?>"
-        let subtitulo = "<?php echo $subtitulo ?>"
+        let subtitulo = "<?php echo $dados . ' - ' . date('d-m-Y H:i:s'); ?>"
         let cors = "<?php echo $cors ?>"
         let cort = "<?php echo $cort ?>"
         let fontesize = <?php echo $fontesize ?>;
-        let fontesizesub = fontesize - 8;
+        let fontesizesub = fontesize - 10;
         let legenda = "<?php echo $legenda ?>"
         let posicao = "<?php echo $posicao ?>"
         let pointstyle = "<?php echo $pointstyle ?>"
         let arquivo = "<?php echo $arquivo ?>"
-        
+        let eixo_x = "<?php echo $eixo_x ?>"
+        let eixo_y = "<?php echo $eixo_y ?>"
+        let corx = "<?php echo $corx ?>"
+        let cory = "<?php echo $cory ?>"
+
         const chartAreaBorder = {
             id: 'chartAreaBorder',
             beforeDraw(chart, args, options) {
@@ -244,8 +301,8 @@
                         display: true,
                         title: {
                             display: true,
-                            text: 'Tempo (min)',
-                            color: 'black',
+                            text: eixo_x, //'Tempo (min)',
+                            color: corx, //'black',
                             font: {
                                 size: 26
                             }
@@ -267,8 +324,8 @@
                         display: true,
                         title: {
                             display: true,
-                            text: 'Temperatura (ºC)',
-                            color: 'red',
+                            text: eixo_y, //'Temperatura (ºC)',
+                            color: cory, //'red',
                             font: {
                                 size: 26
                             }
